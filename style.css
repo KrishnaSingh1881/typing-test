@@ -1,0 +1,173 @@
+/*--------------------------------------------------------------
+Tipografia
+--------------------------------------------------------------*/
+
+body,
+button,
+input,
+select,
+textarea {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	line-height: 1.5;
+}
+
+
+p {
+	margin-bottom: 1em;
+}
+
+
+/*--------------------------------------------------------------
+Layout
+--------------------------------------------------------------*/
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #a55eea;
+}
+
+.masthead {
+    padding: 1em;
+    background-color: #2A2C2B;
+    color: white;
+}
+
+.masthead h1 {
+    text-align: center;
+}
+
+.btn {
+    text-decoration: none;
+    text-align: center;
+    padding: .5em 1em;
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    color: #a55eea;
+    background-color: white;
+}
+
+.intro {
+    padding: 2em 2em;
+    color: white;
+    background: #a55eea;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.intro p {
+    text-align: center;
+}
+
+.intro p,
+.test-area {
+    margin: 0 auto;
+    max-width: 550px;
+}
+
+.test-area {
+    margin-bottom: 5em;
+    padding: 0 2em;
+}
+
+.test-wrapper {
+    border: 5px solid #8854d0;
+    border-radius: 5px;
+}
+
+#origin-text {
+    margin: 1em 0;
+    padding: 1em 1em 0;
+    background-color: white;
+    border-radius: 5px;
+}
+
+#origin-text p {
+    margin: 0;
+    padding-bottom: 1em;
+}
+
+.test-wrapper {
+    display: flex;
+}
+
+.test-wrapper textarea {
+    flex: 1;
+}
+
+.meta {
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.timer {
+    font-size: 3em;
+    font-weight: bold;
+    color: white;
+}
+
+#reset {
+    padding: .5em 2em;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+    background: transparent;
+    border: 5px solid white;
+    border-radius: 5px;
+}
+
+#reset:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    color: #a55eea;
+    background-color: white;
+}
+
+@media only screen and (max-width: 600px) {
+    .masthead h1 {
+        font-size: 1.4rem;
+    }
+
+    .intro {
+        padding: 1em;
+    }
+
+    .intro p {
+        font-size: 1rem;
+    }
+
+    .test-area {
+        margin-bottom: 1em;
+        padding: 0 0.5em;
+    }
+
+    .meta {
+        max-width: 100vw;
+        padding: 0 0.5em;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .timer {
+        font-size: 1.5em;
+    }
+
+    #reset {
+        padding: .2em 1em;
+        font-size: 1em;
+    }
+}
