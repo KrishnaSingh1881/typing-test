@@ -8,13 +8,13 @@ var timer = [0, 0, 0, 0];
 var interval;
 var timerRunning = false;
 var texts = [
-    "I am the bone of my sword.",
-    "Steel is my body and fire is my blood.",
-    "I have created over a thousand blades.",
-    "Unknown to death, nor known to life.",
-    "Have withstood pain to create many weapons.",
-    "Yet, those hands will never hold anything.",
-    "So, as I pray. Unlimited Blade Works!"
+    "If you win, you live. If you lose, you die. If you don’t fight, you can’t win.",
+    "No matter how messed up things get, you can always figure out the best solution.",
+    "The only way to truly escape the hell of war is to keep fighting until the end.",
+    "I’ll wipe out every last one of them… from this world.",
+    "It's not about whether I can do it. I'm doing it because I want to.",
+    "I am free, no matter what happens to me.",
+    "I don’t have time to worry if it’s right or wrong, you can’t hope for a horror story with a happy ending!"
 ];
 
 // Load confetti library
@@ -68,7 +68,7 @@ function spellCheck() {
     }
 }
 
-// Start the timer
+// Start the timer for both mobile and desktop users
 function start() {
     if (testArea.value.length === 0 && !timerRunning) {
         timerRunning = true;
@@ -90,6 +90,6 @@ function reset() {
 }
 
 // Event listeners
-testArea.addEventListener("keypress", start, false);
+testArea.addEventListener("input", start, false); // Works for both mobile and desktop users
 testArea.addEventListener("keyup", spellCheck, false);
 resetButton.addEventListener("click", reset, false);
