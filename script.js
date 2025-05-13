@@ -85,11 +85,8 @@ function reset() {
 
     testArea.value = "";
     theTimer.innerHTML = "00:00:00";
-    testWrapper.style.borderColor = "#9d0208"; // Reset border color
-    originText.innerHTML = texts[Math.floor(Math.random() * texts.length)]; // Generate new sentence
-}
+    testWrapper.style.borderColor = "#9d0208";
 
-// Event listeners
-testArea.addEventListener("input", start, false); // Works for both mobile and desktop users
-testArea.addEventListener("keyup", spellCheck, false);
-resetButton.addEventListener("click", reset, false);
+    let newSentence = texts[Math.floor(Math.random() * texts.length)];
+    originText.innerHTML = newSentence; // Assign new quote
+    console.log("New sentence generated: ", newSentence);  // Debugging
