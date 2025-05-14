@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Typing Speed Test</title>
 
     <link rel="stylesheet" href="style.css">
@@ -18,17 +18,18 @@
     <main class="main">
         <article class="intro">
             <p>This is a typing test. Your goal is to replicate the given text in the field below. The timer starts when you begin typing and stops only when your text exactly matches the provided text. Good luck!</p>
-            <p>Note: The timer will not stop if you make a mistake. You must correct it to move to the next sentence</p>
+            <p>Note: The timer will not stop if you make a mistake. You must correct it to move to the next sentence.</p>
         </article>
 
         <section class="test-area">
-            <div id="origin-text" oncopy="return false" oncut="return false">
+            <blockquote id="origin-text" oncopy="return false" oncut="return false" onpaste="return false">
                 <p>I am the bone of my sword.</p>
-            </div>
+            </blockquote>
 
             <div class="test-wrapper">
+                <label for="test-area" hidden>Typing area</label>
                 <textarea id="test-area" name="textarea" rows="4"
-                    placeholder="The timer starts when you begin typing."></textarea>
+                    placeholder="The timer starts when you begin typing." autofocus></textarea>
             </div>
 
             <div class="meta">
