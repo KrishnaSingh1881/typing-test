@@ -4,10 +4,11 @@ const originText = document.querySelector("#origin-text p");
 const resetButton = document.querySelector("#reset");
 const theTimer = document.querySelector(".timer");
 
-var timer = [0, 0, 0, 0];
-var interval;
-var timerRunning = false;
-var texts = [
+let timer = [0, 0, 0, 0];
+let interval;
+let timerRunning = false;
+
+const texts = [
     "If you win, you live. If you lose, you die. If you don’t fight, you can’t win!",
     "The only thing we're allowed to do is believe that we won't regret the choice we made.",
     "This world is cruel, but also very beautiful.",
@@ -19,58 +20,77 @@ var texts = [
     "You should enjoy the little detours. Because that's where you'll find the things more important than what you want.",
     "Fear is necessary for evolution. The fear that one could be destroyed at any moment.",
     "All creatures want to believe in something bigger than themselves. They cannot live without blind obedience."
-    
 ];
-
 
 // Load confetti library
 const confettiScript = document.createElement("script");
 confettiScript.src = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.0";
 document.body.appendChild(confettiScript);
 
-// Function to trigger confetti effect
+// Optional: Success sound (add only if you want audio feedback)
+const successAudio = new Audio("https://www.soundjay.com/buttons/sounds/button-3.mp3");
+
+// Confetti effect
 function popConfetti() {
-    confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
-    });
+    for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+            confetti({
+                particleCount: 50,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }, i * 300);
+    }
 }
 
-// Format time values with leading zeros
+// Add leading zeros to time
 function leadingZero(time) {
     return time <= 9 ? "0" + time : time;
 }
 
-// Timer function
+// Timer logic
 function runTimer() {
-    let currentTime = leadingZero(timer[0]) + ":" + leadingZero(timer[1]) + ":" + leadingZero(timer[2]);
+    const currentTime = `${leadingZero(timer[0])}:${leadingZero(timer[1])}:${leadingZero(timer[2])}`;
     theTimer.innerHTML = currentTime;
     timer[3]++;
 
-    timer[0] = Math.floor((timer[3] / 100) / 60);
-    timer[1] = Math.floor((timer[3] / 100) - (timer[0] * 60));
-    timer[2] = Math.floor(timer[3] - (timer[1] * 100) - (timer[0] * 6000));
+    timer[0] = Math.floor((timer[3] / 100) / 60);         // minutes
+    timer[1] = Math.floor((timer[3] / 100) % 60);         // seconds
+    timer[2] = Math.floor(timer[3] % 100);                // hundredths
 }
 
-// Check if typed text matches original text
-function spellCheck() {
-    let textEntered = testArea.value;
-    let originTextMatch = originText.innerHTML.substring(0, textEntered.length);
+// WPM Calculation
+function calculateWPM() {
+    const words = testArea.value.trim().split(/\s+/).length;
+    const minutes = (timer[0] * 60 + timer[1] + timer[2] / 100) / 60;
+    return Math.round(words / minutes);
+}
 
-    if (textEntered === originText.innerHTML) {
-        clearInterval(interval); // Stop the timer
-        testWrapper.style.borderColor = "#66ff33"; // Success
+// Spell Check
+function spellCheck() {
+    const textEntered = testArea.value;
+    const fullText = originText.textContent;
+    const partialText = fullText.substring(0, textEntered.length);
+
+    if (textEntered === fullText) {
+        clearInterval(interval);
+        testWrapper.classList.remove("incorrect");
+        testWrapper.classList.add("correct");
+        theTimer.classList.add("done");
         timerRunning = false;
-        
-        // 🎉 Trigger Confetti Effect
+
+        // Fireworks + Sound + WPM
         popConfetti();
+        successAudio.play();
+        const wpm = calculateWPM();
+        alert(`🎉 You nailed it!\nYour WPM: ${wpm}`);
+
+    } else if (textEntered === partialText) {
+        testWrapper.classList.remove("incorrect");
+        testWrapper.classList.add("correct");
     } else {
-        if (textEntered === originTextMatch) {
-            testWrapper.style.borderColor = "#00BFFF"; // Typing correctly
-        } else {
-            testWrapper.style.borderColor = "#DC0809"; // Error
-        }
+        testWrapper.classList.remove("correct");
+        testWrapper.classList.add("incorrect");
     }
 }
 
@@ -82,17 +102,19 @@ function start() {
     }
 }
 
-// Reset function
+// Reset everything
 function reset() {
     clearInterval(interval);
-    interval = null;
     timer = [0, 0, 0, 0];
     timerRunning = false;
 
     testArea.value = "";
+    testWrapper.classList.remove("correct", "incorrect");
+    theTimer.classList.remove("done");
     theTimer.innerHTML = "00:00:00";
-    testWrapper.style.borderColor = "#9d0208"; // Reset border color
-    originText.innerHTML = texts[Math.floor(Math.random() * texts.length)]; // Generate new sentence
+
+    originText.textContent = texts[Math.floor(Math.random() * texts.length)];
+    testArea.focus();
 }
 
 // Event listeners
