@@ -12,6 +12,11 @@ textarea {
     line-height: 1.5;
 }
 
+#origin-text,
+.test-wrapper textarea {
+    font-family: 'Courier New', Courier, monospace;
+}
+
 p {
     margin-bottom: 1em;
 }
@@ -84,6 +89,30 @@ body {
 .test-wrapper {
     border: 5px solid #9d0208;
     border-radius: 5px;
+    display: flex;
+}
+
+.test-wrapper.correct {
+    border-color: #70e000;
+}
+
+.test-wrapper.incorrect {
+    border-color: #d00000;
+}
+
+.test-wrapper textarea {
+    flex: 1;
+    padding: 1em;
+    resize: none;
+    background-color: #fff;
+    border: none;
+    border-radius: 0 0 5px 5px;
+}
+
+.test-wrapper textarea:focus {
+    outline: none;
+    box-shadow: 0 0 10px #ffba08;
+    background-color: #fff8dc;
 }
 
 #origin-text {
@@ -99,14 +128,6 @@ body {
     padding-bottom: 1em;
 }
 
-.test-wrapper {
-    display: flex;
-}
-
-.test-wrapper textarea {
-    flex: 1;
-}
-
 .meta {
     margin-top: 1em;
     display: flex;
@@ -117,6 +138,21 @@ body {
     font-size: 3em;
     font-weight: bold;
     color: #f48c06;
+    transition: all 0.3s ease-in-out;
+}
+
+.timer.done {
+    color: #70e000;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
 }
 
 #reset {
@@ -135,6 +171,10 @@ body {
     color: #03071e;
     background-color: #ffba08;
 }
+
+/*--------------------------------------------------------------
+Responsive
+--------------------------------------------------------------*/
 
 @media only screen and (max-width: 600px) {
     .masthead h1 {
